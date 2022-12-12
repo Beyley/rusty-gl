@@ -25,11 +25,10 @@ pub fn create_shader(type_: enums::ShaderType) -> Shader {
 /// TODO: MISSING TWO PARAMS (to do with count)
 pub fn shader_source(shader: Shader, source: &str) {
     unsafe {
-        let cstr = CString::new(source).unwrap();
         gl::ShaderSource(
             shader.0,
             1,
-            &cstr.as_c_str().as_ptr(),
+            &CString::new(source).unwrap().as_ptr(),
             ptr::null(),
         );
     }
