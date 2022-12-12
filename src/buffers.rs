@@ -174,8 +174,10 @@ pub fn delete_buffers(count: GLsizei, buffers: *mut Buffer) {
     }
 }
 
-pub fn delete_buffer(buffers: *mut Buffer) {
-    delete_buffers(1, buffers);
+pub fn delete_buffer(buffer: Buffer) {
+    unsafe {
+        gl::DeleteBuffers(1, &buffer.0);
+    }
 }
 
 pub fn delete_vertex_arrays(count: GLsizei, arrays: *mut VAO) {
