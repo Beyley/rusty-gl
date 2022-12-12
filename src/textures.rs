@@ -5,7 +5,7 @@ use gl::types::*;
 use std::os::raw::c_void;
 
 #[derive(Clone, Copy)]
-pub struct Texture(GLuint);
+pub struct Texture(pub GLuint);
 
 pub fn gen_textures(count: GLsizei, texture: *mut Texture) {
     unsafe {

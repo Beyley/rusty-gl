@@ -2,17 +2,16 @@ use super::enums;
 
 use gl;
 use gl::types::*;
-use std::ffi::CString;
 use std::ptr;
 
 #[derive(Clone, Copy)]
-pub struct Shader(GLuint);
+pub struct Shader(pub GLuint);
 
 #[derive(Clone, Copy)]
-pub struct Program(GLuint);
+pub struct Program(pub GLuint);
 
 #[derive(Clone, Copy)]
-pub struct UniformLocation(GLint);
+pub struct UniformLocation(pub GLint);
 
 pub fn create_program() -> Program {
     unsafe { Program(gl::CreateProgram()) }
@@ -28,7 +27,7 @@ pub fn shader_source(shader: Shader, source: &str) {
         gl::ShaderSource(
             shader.0,
             1,
-            &CString::new(source).unwrap().as_ptr(),
+            &(source.as_ptr() as *const i8),
             ptr::null(),
         );
     }
@@ -98,7 +97,7 @@ pub fn delete_shader(shader: Shader) {
 
 pub fn get_uniform_location(program: Program, name: &str) -> UniformLocation {
     unsafe {
-        UniformLocation(gl::GetUniformLocation(program.0, CString::new(name).unwrap().as_ptr()))
+        UniformLocation(gl::GetUniformLocation(program.0, name.as_ptr() as *const i8))
     }
 }
 

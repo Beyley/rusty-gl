@@ -9,7 +9,7 @@ use super::enums;
 pub struct VAO(pub GLuint);
 
 #[derive(Clone, Copy)]
-pub struct VBO(pub GLuint);
+pub struct Buffer(pub GLuint);
 
 /// Generates vertex array objects
 ///
@@ -49,7 +49,7 @@ pub fn gen_vertex_array() -> VAO {
 /// ```
 ///
 /// More: https://www.khronos.org/registry/OpenGL-Refpages/es2.0/xhtml/glGenBuffers.xml
-pub fn gen_buffers(count: GLsizei, buffers: *mut VBO) {
+pub fn gen_buffers(count: GLsizei, buffers: *mut Buffer) {
     unsafe {
         gl::GenBuffers(count, &mut (*buffers).0);
     }
@@ -62,8 +62,8 @@ pub fn gen_buffers(count: GLsizei, buffers: *mut VBO) {
 /// ```rust,no_run
 /// let mut vbo = rgl::gen_buffer();
 /// ```
-pub fn gen_buffer() -> VBO {
-    let mut vbo = VBO(0);
+pub fn gen_buffer() -> Buffer {
+    let mut vbo = Buffer(0);
     gen_buffers(1, &mut vbo);
     vbo
 }
@@ -93,7 +93,7 @@ pub fn bind_vertex_array(array: VAO) {
 /// ```
 ///
 /// More: https://www.khronos.org/registry/OpenGL-Refpages/es2.0/xhtml/glGenBuffers.xml
-pub fn bind_buffer(target: enums::Target, buffer: VBO) {
+pub fn bind_buffer(target: enums::Target, buffer: Buffer) {
     unsafe {
         gl::BindBuffer(target as u32, buffer.0);
     }
@@ -168,13 +168,13 @@ pub fn buffer_data<T>(target: enums::Target, data: &[T], usage: enums::Usage) {
     }
 }
 
-pub fn delete_buffers(count: GLsizei, buffers: *mut VBO) {
+pub fn delete_buffers(count: GLsizei, buffers: *mut Buffer) {
     unsafe {
         gl::DeleteBuffers(count, &mut (*buffers).0);
     }
 }
 
-pub fn delete_buffer(buffers: *mut VBO) {
+pub fn delete_buffer(buffers: *mut Buffer) {
     delete_buffers(1, buffers);
 }
 
