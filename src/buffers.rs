@@ -174,6 +174,12 @@ pub fn buffer_data<T>(target: enums::Target, data: &[T], usage: enums::Usage) {
     }
 }
 
+pub fn buffer_sub_data<T>(target: enums::Target, offset: isize, size: isize, data: &[T]) {
+    unsafe {
+        gl::BufferSubData(target as GLenum, offset, size, mem::transmute(&data[0]));
+    }
+}
+
 pub fn delete_buffers(count: GLsizei, buffers: *mut Buffer) {
     unsafe {
         gl::DeleteBuffers(count, &mut (*buffers).0);
