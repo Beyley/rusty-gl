@@ -4,7 +4,7 @@ Note: This is a work in progress.
 
 Crate: https://crates.io/crates/rgl
 
-[![Build Status](https://travis-ci.org/Hopson97/rusty-gl.svg?branch=master)](https://travis-ci.org/Hopson97/rusty-gl)
+<!-- [![Build Status](https://travis-ci.org/Hopson97/rusty-gl.svg?branch=master)](https://travis-ci.org/Hopson97/rusty-gl) -->
 
 ## Summary
 
@@ -22,10 +22,10 @@ Very thin wrapper over gl-rs, aiming to make code more "rust-like" and safer, wh
 
 Current tuple structs:
 
-* `pub struct VBO(GLuint);` for vertex buffer objects
+* `pub struct Buffer(GLuint);` for vertex buffer objects
 * `pub struct VAO(GLuint);` for vertex array objects
-* `pub struct GLTexture(GLuint);` for texture objects
-* `pub struct GLShader(GLuint);` for programs/ shader object
+* `pub struct Texture(GLuint);` for texture objects
+* `pub struct Shader(GLuint);` for programs/ shader object
 
 These structs have no implemention (assosiated function), they are just there to enforce that the correct OpenGL functions are passed into functions.
 For example:
