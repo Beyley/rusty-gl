@@ -93,6 +93,11 @@ pub fn delete_shader(shader: Shader) {
     }
 }
 
+pub fn detach_shader(program: Program, shader: Shader) {
+    unsafe {
+        gl::DetachShader(program.0, shader.0);
+    }
+}
 
 ///Shader uniforms
 
