@@ -2,6 +2,7 @@ use super::enums;
 
 use gl;
 use gl::types::*;
+use std::ffi::{CStr, CString};
 use std::ptr;
 
 #[derive(Clone, Copy)]
@@ -24,10 +25,11 @@ pub fn create_shader(type_: enums::ShaderType) -> Shader {
 /// TODO: MISSING TWO PARAMS (to do with count)
 pub fn shader_source(shader: Shader, source: &str) {
     unsafe {
+        let cstr = CString::new(source.as_bytes()).unwrap();
         gl::ShaderSource(
             shader.0,
             1,
-            &(source.as_ptr() as *const i8),
+            &cstr.as_c_str().as_ptr(),
             ptr::null(),
         );
     }
