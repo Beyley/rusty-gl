@@ -99,6 +99,12 @@ pub fn bind_buffer(target: enums::Target, buffer: Buffer) {
     }
 }
 
+pub fn unbind_buffer(target: enums::Target) {
+    unsafe {
+        gl::BindBuffer(target as u32, 0);
+    }
+}
+
 /// Enable a generic vertex attribute array
 ///
 /// # Examples
